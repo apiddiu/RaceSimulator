@@ -31,14 +31,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CarConfiguration.cs" />
+    <Compile Include="CarSetupProcessor.cs" />
     <Compile Include="ITrackRepository.cs" />
-    <Compile Include="ITrackPerformanceRepository.cs" />
+    <Compile Include="RaceSimulationResult.cs" />
+    <Compile Include="RaceSimulator.cs" />
     <Compile Include="TrackPerformance.cs" />
-    <Compile Include="ICarConfiguration.cs" />
+    <Compile Include="IRaceSimulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="TrackRepository.cs" />
-    <Compile Include="TrackPerformanceRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -45,10 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarConfigurationTest.cs" />
+    <Compile Include="RaceSimulatorTest.cs" />
+    <Compile Include="CarSetupProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackRepositoryTest.cs" />
-    <Compile Include="TrackPerformanceRepositoryTest.cs" />
+    <Compile Include="CarConfigurationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

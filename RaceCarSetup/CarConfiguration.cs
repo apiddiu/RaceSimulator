@@ -1,40 +1,25 @@
 ﻿namespace RaceCarSetup
 {
-    public class CarConfiguration : ICarConfiguration
+    public class CarConfiguration
     {
-        private readonly ITrackPerformanceRepository trackPerformanceRepository;
+        private readonly TrackPerformance[] trackPerformances;
 
 
         public CarConfiguration(TrackPerformance[] trackPerformances)
-            : this(new TrackPerformanceRepository(trackPerformances))
-        { }
-
-        public CarConfiguration(ITrackPerformanceRepository trackPerformanceRepository)
         {
-            this.trackPerformanceRepository = trackPerformanceRepository;
+            this.trackPerformances = trackPerformances;
         }
 
-        public float SimulateRace(Track track)
+        public TrackPerformance GetPerformanceForTrack(string track)
         {
-            try
+            foreach (var performance in trackPerformances)
             {
-                var trackPerformance = trackPerformanceRepository.FindPerformanceForTrack(track.TrackName);
-
-                var requiredFuelForLap = track.LapDistance * trackPerformance.AvgConsumption;
-
-                var requiredFuelForRace = track.RaceLenght * requiredFuelForLap;
-
-                var requiredPitstopsPerRace = (int)(requiredFuelForRace / trackPerformance.FuelCapacity);
-
-                var raceTime = (track.RaceLenght * trackPerformance.LapTime) + (track.PitstopTime * requiredPitstopsPerRace);
-
-                return raceTime > 0 ? raceTime : float.NaN;
+                if (performance.TrackName.Equals(track))
+                {
+                    return performance;
+                }
             }
-            catch
-            {
-                return float.NaN;
-            }
+            return null;
         }
-
     }
 }
