@@ -4,6 +4,6 @@ namespace RaceCarSetup
     {
         public float RaceTime { get; set; }
         public Track Track { get; set; }
-        public CarConfiguration Setup { get; set; }
+        public CarConfiguration CarConfiguration { get; set; }
     }
 }

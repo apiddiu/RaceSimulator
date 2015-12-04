@@ -8,7 +8,6 @@ namespace RaceCarSetup.Test
     {
         private CarSetupProcessor processor;
 
-        private Mock<ITrackRepository> trackRepoMock;
         private Mock<IRaceSimulator> raceSimulatorMock;
 
         private const float FirstResult = 1.0f;
@@ -20,12 +19,10 @@ namespace RaceCarSetup.Test
         [SetUp]
         public void SetUp()
         {
-            trackRepoMock = new Mock<ITrackRepository>(MockBehavior.Strict);
-            trackRepoMock.Setup(t => t.FindTrack(It.IsAny<string>())).Returns(new Track());
 
             raceSimulatorMock = new Mock<IRaceSimulator>(MockBehavior.Strict);
 
-            processor = new CarSetupProcessor(trackRepoMock.Object, raceSimulatorMock.Object);
+            processor = new CarSetupProcessor(GivenTracks(), raceSimulatorMock.Object);
         }
 
         [Test]
@@ -34,7 +31,7 @@ namespace RaceCarSetup.Test
 
             GivenSimulationReturnsANotOrderedResultsSequence();
 
-            var simulationResults = processor.RankConfigurationsForTrack("", GivenCarConfigurations());
+            var simulationResults = processor.RankConfigurationsForTrack("Track", GivenCarConfigurations());
 
             Assert.AreEqual(5, simulationResults.Length);
             Assert.AreEqual(FirstResult, simulationResults[0].RaceTime);
@@ -64,6 +61,11 @@ namespace RaceCarSetup.Test
                 new CarConfiguration(new TrackPerformance[] {}),
                 new CarConfiguration(new TrackPerformance[] {}),
             };
+        }
+
+        private Track[] GivenTracks()
+        {
+            return new[] { new Track() { TrackName = "Track" } };
         }
     }
 }

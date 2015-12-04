@@ -2,18 +2,18 @@
 {
     public class CarSetupProcessor
     {
-        private readonly ITrackRepository trackRepository;
+        private readonly Track[] tracks;
         private readonly IRaceSimulator raceSimulator;
 
         public CarSetupProcessor(Track[] tracks)
-            : this(new TrackRepository(tracks), new RaceSimulator())
+            : this(tracks, new RaceSimulator())
         {
 
         }
 
-        public CarSetupProcessor(ITrackRepository trackRepository, IRaceSimulator raceSimulator)
+        public CarSetupProcessor(Track[] tracks, IRaceSimulator raceSimulator)
         {
-            this.trackRepository = trackRepository;
+            this.tracks = tracks;
             this.raceSimulator = raceSimulator;
         }
 
@@ -24,52 +24,27 @@
 
         public RaceSimulationResult[] RankConfigurationsForTrack(string trackName, CarConfiguration[] carConfigurations)
         {
-            var track = trackRepository.FindTrack(trackName);
+            var track = ArrayUtils.FindElement(tracks, (t) => t.TrackName.Equals(trackName));
             var results = new RaceSimulationResult[carConfigurations.Length];
 
             foreach (var carConfiguration in carConfigurations)
             {
                 var raceResult = raceSimulator.SimulateRace(track, carConfiguration.GetPerformanceForTrack(trackName));
-                InsertSorted(ref results, BuildResult(raceResult, track, carConfiguration));
+                ArrayUtils.InsertSorted(ref results, BuildResult(raceResult, track, carConfiguration),
+                    (t) => (float.IsNaN(t.RaceTime) || t.RaceTime > raceResult));
             }
 
             return results;
         }
 
-        private RaceSimulationResult BuildResult(float raceTime, Track track, CarConfiguration setup)
+        private RaceSimulationResult BuildResult(float raceTime, Track track, CarConfiguration carConfiguration)
         {
             return new RaceSimulationResult()
             {
                 RaceTime = raceTime,
                 Track = track,
-                Setup = setup
+                CarConfiguration = carConfiguration
             };
-        }
-
-        public void InsertSorted(ref RaceSimulationResult[] inputArray, RaceSimulationResult newElement)
-        {
-            for (var i = 0; i < inputArray.Length - 1; i++)
-            {
-                if (inputArray[i] == null)
-                {
-                    inputArray[i] = newElement;
-                    return;
-                }
-                if (float.IsNaN(inputArray[i].RaceTime) || inputArray[i].RaceTime > newElement.RaceTime)
-                {
-                    ShiftRight(ref inputArray, i);
-                    inputArray[i] = newElement;
-                    return;
-                }
-            }
-        }
-
-        public void ShiftRight(ref RaceSimulationResult[] inputArray, int fromIndex)
-        {
-            for (var i = inputArray.Length - 2; i >= fromIndex; i--)
-            {
-                inputArray[i + 1] = inputArray[i];
-            }
         }
     }
 }

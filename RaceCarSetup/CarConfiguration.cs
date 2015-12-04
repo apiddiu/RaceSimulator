@@ -10,16 +10,9 @@
             this.trackPerformances = trackPerformances;
         }
 
-        public TrackPerformance GetPerformanceForTrack(string track)
+        public TrackPerformance GetPerformanceForTrack(string trackName)
         {
-            foreach (var performance in trackPerformances)
-            {
-                if (performance.TrackName.Equals(track))
-                {
-                    return performance;
-                }
-            }
-            return null;
+            return ArrayUtils.FindElement(trackPerformances, (t) => t.TrackName.Equals(trackName));
         }
     }
 }
