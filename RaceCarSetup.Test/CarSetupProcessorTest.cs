@@ -55,11 +55,11 @@ namespace RaceCarSetup.Test
         {
             return new CarConfiguration[]
             {
-                new CarConfiguration(new TrackPerformance[] {}),
-                new CarConfiguration(new TrackPerformance[] {}),
-                new CarConfiguration(new TrackPerformance[] {}),
-                new CarConfiguration(new TrackPerformance[] {}),
-                new CarConfiguration(new TrackPerformance[] {}),
+                new CarConfiguration("", new TrackPerformance[] {}),
+                new CarConfiguration("", new TrackPerformance[] {}),
+                new CarConfiguration("", new TrackPerformance[] {}),
+                new CarConfiguration("", new TrackPerformance[] {}),
+                new CarConfiguration("", new TrackPerformance[] {}),
             };
         }
 

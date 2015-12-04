@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTest.cs" />
     <Compile Include="RaceSimulatorTest.cs" />
     <Compile Include="CarSetupProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

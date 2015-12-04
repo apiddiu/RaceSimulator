@@ -2,11 +2,13 @@
 {
     public class CarConfiguration
     {
+        public string ConfigurationName { get; private set; }
         private readonly TrackPerformance[] trackPerformances;
 
 
-        public CarConfiguration(TrackPerformance[] trackPerformances)
+        public CarConfiguration(string configurationName, TrackPerformance[] trackPerformances)
         {
+            ConfigurationName = configurationName;
             this.trackPerformances = trackPerformances;
         }
 

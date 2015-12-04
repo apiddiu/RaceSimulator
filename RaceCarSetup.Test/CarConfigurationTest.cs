@@ -11,7 +11,7 @@ namespace RaceCarSetup.Test
         [SetUp]
         public void SetUp()
         {
-            repo = new CarConfiguration(new[]
+            repo = new CarConfiguration("ConfigurationName", new[]
             {
                 new TrackPerformance() { TrackName = "NotExpected0" },
                 new TrackPerformance() { TrackName = "NotExpected0" },
